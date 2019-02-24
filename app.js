@@ -35,7 +35,8 @@ app.use(session({
 // Interceptor
 var exceptList = "/users/loginForm,/users/loginChk";
 app.use(function(req, res, next) {
-  if (exceptList.indexOf(req.url)===-1 & !req.session.userno) {
+  console.log(req.url);
+  if ((exceptList.indexOf(req.url)===-1 || req.url==="/") & !req.session.userno) {
     res.redirect('/users/loginForm'); 
     return; 
   }

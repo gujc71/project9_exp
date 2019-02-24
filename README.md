@@ -16,6 +16,7 @@ To make web development easier and faster, a variety of frequently used function
 
 - git clone https://github.com/gujc71/project9_exp.git
 - npm install
+- set the information in the "/routes/mysqlConn.js" to connect to MariaDB
 - create tables by running tables.sql from MariaDB
 - npm start
 

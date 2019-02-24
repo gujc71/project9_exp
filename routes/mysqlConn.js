@@ -5,7 +5,7 @@ var pool = mariadb.createPool({
     host     : 'localhost',
     user     : 'root',
     password : 'gujc1004',
-    database : 'imageprinter'    
+    database : 'project9'    
 });
 
 module.exports = pool;
