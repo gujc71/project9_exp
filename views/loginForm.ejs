@@ -18,11 +18,11 @@
     <script>
       function formSubmit(){
         var snackbarLogin = document.querySelector('#snackbarLogin');
-        if ($("#uid").val()==="") {
+        if ($("#userid").val()==="") {
           snackbarLogin.MaterialSnackbar.showSnackbar({message: 'Please enter your ID.',timeout: 2000});        
           return;
         }
-        if ($("#passwd").val()==="") {
+        if ($("#userpw").val()==="") {
           snackbarLogin.MaterialSnackbar.showSnackbar({message: 'Please enter a password.',timeout: 2000});        
           return;
         }
@@ -42,14 +42,14 @@
                         <h2 class="mdl-card__title-text">Welcome</h2>
                       </div>
                       <div class="mdl-card__supporting-text">
-                        <form action="users/loginChk" id="inputForm" >
+                        <form action="loginChk" id="inputForm"  method="post">
                             <div class="mdl-textfield mdl-js-textfield">
-                              <input class="mdl-textfield__input" type="text" id="uid" name="uid">
-                              <label class="mdl-textfield__label" for="uid">ID</label>
+                              <input class="mdl-textfield__input" type="text" id="userid" name="userid">
+                              <label class="mdl-textfield__label" for="userid">ID</label>
                             </div>
                             <div class="mdl-textfield mdl-js-textfield">
-                              <input class="mdl-textfield__input" type="password" id="passwd" name="passwd">
-                              <label class="mdl-textfield__label" for="passwd">Password</label>
+                              <input class="mdl-textfield__input" type="password" id="userpw" name="userpw">
+                              <label class="mdl-textfield__label" for="userpw">Password</label>
                             </div>
                         </form>                        
                       </div>

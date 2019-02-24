@@ -32,9 +32,23 @@ app.use(session({
 	saveUninitialized: true,
 }));
 
+// Interceptor
+var exceptList = "/users/loginForm,/users/loginChk";
+app.use(function(req, res, next) {
+  if (exceptList.indexOf(req.url)===-1 & !req.session.userno) {
+    res.redirect('/users/loginForm'); 
+    return; 
+  }
+  res.locals.usernm = req.session.usernm;
+  next();
+});
+
 app.use('/', indexRouter);
 app.use('/index', indexRouter);
 app.use('/users', usersRouter);
+app.use('/board', require('./routes/board'));
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -44,6 +58,7 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
+  console.log("error", err.message);
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 

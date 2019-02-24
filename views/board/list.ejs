@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <% include ../common/hemlHead.ejs %>
+    <style>
+    .demo-list-two {
+        width: 90%;
+    }
+    </style>      
+    <script>
+    function ev_new(){
+        location.href="/board/form";
+    }
+    </script>
+</head>
+<body>
+  <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+    <% include ../common/header_menu.ejs %>
+
+    <main class="mdl-layout__content mdl-color--grey-100">
+    <div class="mdl-grid demo-content">
+      <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+        <ul class="demo-list-two mdl-list">
+            <%
+                for(var i=0; i<rows.length; i++) {
+            %>                
+                <li class="mdl-list__item mdl-list__item--two-line">
+                <span class="mdl-list__item-primary-content">
+                    <i class="material-icons mdl-list__item-avatar">person</i>
+                    <span><a href='/board/read?brdno=<%=rows[i].BRDNO%>'><%=rows[i].BRDTITLE%></a></span>
+                    <span class="mdl-list__item-sub-title"><%=rows[i].BRDWRITER%></span>
+                </span>
+                <span class="mdl-list__item-secondary-content">
+                    <%=rows[i].BRDDATE%>
+                </span>
+                </li>
+            <%
+                }
+            %>
+        </ul>
+      </div>
+    </div>
+    </main>
+  </div>
+  <div style="bottom: 50px;position: absolute;right: 50px; z-index:99">
+    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="ev_new()">
+      <i class="material-icons">add</i>
+    </button>
+  </div>
+</body>
+</html>
