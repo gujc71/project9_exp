@@ -26,8 +26,9 @@ CREATE TABLE TBL_BOARD (
 /*------------------------------------------*/
 
 
+delete from com_user;
 
 INSERT INTO `com_user` (`USERNO`, `USERID`, `USERNM`, `USERPW`, `USERROLE`, `PHOTO`, `DELETEFLAG`) VALUES
-	(1, 'admin', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'A', NULL, 'N'),
-	(2, 'user1', 'Lee SunSin', '0a041b9462caa4a31bac3567e0b6e6fd9100787db2ab433d96f6d178cabfce90', 'U', NULL, 'N'),
-	(3, 'user2', 'So SiNo', '6025d18fe48abd45168528f18a82e265dd98d421a7084aa09f61b341703901a3', 'U', NULL, 'N');
+	(1, 'admin', 'admin', SHA2('admin', 256), 'A', NULL, 'N'),
+	(2, 'user1', 'Lee SunSin', SHA2('user1', 256), 'U', NULL, 'N'),
+	(3, 'user2', 'So SiNo', SHA2('user2', 256), 'U', NULL, 'N');
