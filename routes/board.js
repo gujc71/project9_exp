@@ -15,7 +15,6 @@ router.get('/list', function(req,res,next){
         
         connection.query(sql, function (err, rows) {
             if (err) console.error("err : " + err);
-//            console.log("rows : " + JSON.stringify(rows));
 
             res.render('board/list', {rows: rows});
             connection.release();
@@ -25,14 +24,13 @@ router.get('/list', function(req,res,next){
 
 router.get('/read', function(req,res,next){
     pool.getConnection(function (err, connection) {
-        var sql = "SELECT BRDNO, BRDTITLE, BRDMEMO, USERNM BRDWRITER, DATE_FORMAT(BRDDATE,'%Y-%m-%d') BRDDATE"+
+        var sql = "SELECT BRDNO, BRDTITLE, BRDMEMO, TB.USERNO, USERNM BRDWRITER, DATE_FORMAT(BRDDATE,'%Y-%m-%d') BRDDATE"+
                   "  FROM TBL_BOARD TB " +
                   " INNER JOIN COM_USER CU ON CU.USERNO=TB.USERNO" +
                   " WHERE BRDNO=" + req.query.brdno;
-            console.log("rows : " + sql);
+            
         connection.query(sql, function (err, rows) {
             if (err) console.error("err : " + err);
-            console.log("rows : " + JSON.stringify(rows));
 
             res.render('board/read', {row: rows[0]});
             connection.release();
@@ -61,7 +59,6 @@ router.get('/form', function(req,res,next){
 
 router.post('/save', function(req,res,next){
     var data = [req.body.brdtitle, req.body.brdmemo, req.session.userno, req.body.brdno];
-    console.log("rows : " + data);
 
     pool.getConnection(function (err, connection) {
         var sql = "";

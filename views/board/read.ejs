@@ -31,10 +31,12 @@
                 <div class="mdl-card__actions mdl-card--border">
                     <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#" onclick="history.back(-1)">
                         <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">arrow_back</i></a>
-                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/board/delete?brdno=<%=row.BRDNO%>">
-                        <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i></a>
-                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/board/form?brdno=<%=row.BRDNO%>">
-                        <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">create</i> Modify</a>
+                    <%if (userno == row.USERNO) { %>    
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/board/delete?brdno=<%=row.BRDNO%>">
+                            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i></a>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/board/form?brdno=<%=row.BRDNO%>">
+                            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">create</i> Modify</a>
+                    <% } %>
                 </div>
             </div>
 

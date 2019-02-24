@@ -39,6 +39,7 @@ app.use(function(req, res, next) {
     res.redirect('/users/loginForm'); 
     return; 
   }
+  res.locals.userno = req.session.userno;
   res.locals.usernm = req.session.usernm;
   next();
 });
