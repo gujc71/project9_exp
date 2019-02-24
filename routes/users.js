@@ -11,12 +11,16 @@ router.get('/loginForm', function(req, res, next) {
 });
 
 router.get('/loginChk', function(req, res, next) {
-  console.log("aaaa");
   req.session.uid = req.body.uid;
   req.session.save(function(){
-    console.log("bbbb");
-    res.redirect('index');		
+    res.redirect('../index');		
   });  
+});
+
+router.get('/logout', function(req, res, next) {
+  req.session.destroy(function(err) {
+      res.redirect('/');
+  });
 });
 
 module.exports = router;

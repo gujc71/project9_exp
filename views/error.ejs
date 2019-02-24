@@ -1,3 +1,46 @@
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Error</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="/stylesheets/material.min.css">
+
+  <style type="text/css">
+  .error-template{
+    padding: 40px 15px;
+    text-align:center;
+  }
+
+  </style>
+</head>
+
+<body>
+
+<div class="wrapper">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="error-template">
+        <h1>
+           Internal Server Error</h1>
+        <div class="error-details">
+          The server encountered an internal error or misconfiguration and was unable to complete your request.<br/>
+					Please contact the server administrator.
+        </div>
+        <div >
+          <a href="index" ><i class="material-icons">home</i>Take Me Home </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+
+</html>
