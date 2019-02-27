@@ -22,20 +22,18 @@
       <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
         <ul class="demo-list-two mdl-list">
             <%
-                for(var i=0; i<rows.length; i++) {
+                rows.forEach(function(row) {
             %>                
                 <li class="mdl-list__item mdl-list__item--two-line">
-                <span class="mdl-list__item-primary-content">
-                    <i class="material-icons mdl-list__item-avatar">person</i>
-                    <span><a href='/board/read?brdno=<%=rows[i].BRDNO%>'><%=rows[i].BRDTITLE%></a></span>
-                    <span class="mdl-list__item-sub-title"><%=rows[i].BRDWRITER%></span>
-                </span>
-                <span class="mdl-list__item-secondary-content">
-                    <%=rows[i].BRDDATE%>
-                </span>
+                    <span class="mdl-list__item-primary-content">
+                        <i class="material-icons mdl-list__item-avatar">person</i>
+                        <span><a href='/board/read?brdno=<%=row.BRDNO%>'><%=row.BRDTITLE%></a></span>
+                        <span class="mdl-list__item-sub-title"><%=row.BRDWRITER%></span>
+                    </span>
+                    <span class="mdl-list__item-secondary-content"><%=row.BRDDATE%></span>
                 </li>
             <%
-                }
+                });
             %>
         </ul>
       </div>
