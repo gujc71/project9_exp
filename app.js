@@ -35,11 +35,17 @@ app.use(session({
 // Interceptor
 var exceptList = "/users/loginForm,/users/loginChk";
 app.use(function(req, res, next) {
-  console.log(req.url);
-  if ((exceptList.indexOf(req.url)===-1 || req.url==="/") & !req.session.userno) {
+  let url = req.url.split('?')[0];
+
+  if ((exceptList.indexOf(url)===-1 || url==="/") & !req.session.userno) {
     res.redirect('/users/loginForm'); 
     return; 
   }
+  if (url.substring(1,3)==="ad" & req.session.userrole!=="A") {
+    res.redirect('/users/loginForm'); 
+    return; 
+  }
+  res.locals.userrole = req.session.userrole;
   res.locals.userno = req.session.userno;
   res.locals.usernm = req.session.usernm;
   next();
@@ -49,8 +55,7 @@ app.use('/', indexRouter);
 app.use('/index', indexRouter);
 app.use('/users', usersRouter);
 app.use('/board', require('./routes/board'));
-
-
+app.use('/adusers', require('./routes/adUsers'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

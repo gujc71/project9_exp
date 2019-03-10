@@ -33,6 +33,7 @@ router.post('/loginChk', function(req, res, next) {
         req.session.userno = rows[0].USERNO;
         req.session.userid = req.body.userid;
         req.session.usernm = rows[0].USERNM;
+        req.session.userrole = rows[0].USERROLE;
         req.session.save(function(){
           res.redirect('/index');		
         });  
