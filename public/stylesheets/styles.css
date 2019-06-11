@@ -49,7 +49,6 @@ html, body {
   flex-direction: column;
   justify-content: flex-end;
   padding: 16px;
-  height: 151px;
 }
 .demo-avatar-dropdown {
   display: flex;
@@ -80,7 +79,9 @@ html, body {
 }
 
 .demo-content {
-  max-width: 1080px;
+  _max-width: 1080px;
+  _margin: 10px auto !important;
+  margin: 10px 10px;
 }
 
 .demo-charts {
@@ -140,12 +141,7 @@ _:-ms-input-placeholder, :root .demo-graph {
 .demo-cards h3 {
   font-size: 1em;
 }
-.demo-updates .mdl-card__title {
-  min-height: 200px;
-  background-image: url('images/dog.png');
-  background-position: 90% 100%;
-  background-repeat: no-repeat;
-}
+
 .demo-cards .mdl-card__actions a {
   color: #00BCD4;
   text-decoration: none;
@@ -172,4 +168,65 @@ _:-ms-input-placeholder, :root .demo-graph {
   display: flex;
   box-sizing: border-box;
   align-items: center;
+}
+
+
+.demo-list-two {
+  width: 100%;
+}
+
+.noRound{
+  border-radius:0px !important;
+  font-size: 32px !important;
+  margin-top: 3px !important;
+  margin-left: 5px !important;
+}
+
+.placeAvarta {
+  display:block;
+  margin: auto !important;
+  border-radius: 50%;
+  _border: 1px solid;
+  width: 40px;
+  height: 40px;
+  background-color: #757575;
+  overflow: hidden;  
+  margin-right: 10px;        
+  cursor: default;
+}
+
+.width100 {
+  width: 100px;
+}
+
+.userAvatar {
+  width:  40px;
+  height: 40px;
+  margin-right: 16px;
+  float: left;
+  border-radius: 50%;
+}
+
+.smallFont {
+  font-size: 12px;
+  color: rgba(0,0,0,.54);
+}
+
+.memoInput{
+  width: 96%; 
+  border: 1px solid rgba(0,0,0,.1);
+  padding: 6px;
+}      
+.memoInput:focus {
+  border: 1px solid #3f51b5;
+  height: 200px;
+}
+
+.material-icons4reply {
+  font-size: 19px !important;
+  vertical-align: bottom;
+  cursor: pointer;
+}
+.height_auto{
+  height: auto !important;
 }

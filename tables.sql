@@ -4,7 +4,9 @@ CREATE TABLE COM_USER(
   USERNM 	VARCHAR(20)						COMMENT '사용자 이름',   -- or 가게이름
   USERPW 	VARCHAR(100)					COMMENT '비밀번호',
   USERROLE	CHAR(1)							COMMENT '권한',
-  PHOTO 	VARCHAR(50)						COMMENT '사진',
+  USERMAIL   VARCHAR(50)                     COMMENT 'EMAIL',
+  USERSNS    VARCHAR(10)                     COMMENT 'SNS', -- g: google, f: facebook etc
+  PHOTO      VARCHAR(50)                     COMMENT '사진',
   ENTRYDATE DATETIME						COMMENT '작성일자',
   DELETEFLAG CHAR(1)						COMMENT '삭제 여부',
   PRIMARY KEY (USERNO)
@@ -23,6 +25,16 @@ CREATE TABLE TBL_BOARD (
   BRDDELETEFLAG CHAR(1)						        COMMENT '삭제 여부',
   PRIMARY KEY (BRDNO)
 ) ;
+
+CREATE TABLE TBL_BOARDREPLY (
+  RENO       INT(11) NOT NULL AUTO_INCREMENT COMMENT '댓글 번호',
+  BRDNO      INT(11) NOT NULL                COMMENT '게시물 번호',
+  USERNO     INT(11)                         COMMENT '작성자',
+  REMEMO     VARCHAR(500)                    COMMENT '댓글내용',
+  REDATE     DATETIME                        COMMENT '작성일자',
+  REDELETEFLAG CHAR(1)                       COMMENT '삭제여부',
+  PRIMARY KEY (RENO)
+);
 
 /*------------------------------------------*/
 

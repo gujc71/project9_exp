@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+      <% include ../common/htmlHead.ejs %>
+      <script src="/javascripts/ckeditor.js"></script>      
+      <!--script src="/javascripts/translations/ko.js"></script-->      
+    <script>
+      var cmdescEditor;
+      window.onload = function () {
+        BalloonEditor.create( document.querySelector( '#cmdescEditor' ), {
+          language: 'ko',
+          ckfinder: {uploadUrl: '/common/uploadFile4Editor'}
+        }).then( editor => {
+              cmdescEditor= editor;
+        }).catch( error => {
+              console.error( error );
+        });
+      }   
+
+      function formSubmit(status){
+        var snackbarMsg = document.querySelector('#snackbarMsg');
+
+        $("#cmdesc").val(cmdescEditor.getData());
+        if ($("#cmdesc").val()==="") {
+          snackbarMsg.MaterialSnackbar.showSnackbar({message: 'Input Text',timeout: 2000});        
+          return;
+        }
+        
+        //$("#inputForm").submit();
+      }
+    </script>   
+  </head>
+  <body>
+    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <% include ../common/header_menu.ejs %>
+
+      <main class="mdl-layout__content mdl-color--grey-100">
+        <div class="mdl-grid demo-content mdl-color--white mdl-shadow--2dp">
+          <h2 class="mdl-card__title-text">CKEditor</h2>
+
+          <form action="save" id="inputForm" method="post" style="width: 100%;">
+            <textarea id="cmdesc" name="cmdesc" rows="5" cols="60" style="display:none"></textarea>
+            <div id="cmdescEditor" style="width: 97%; height: 300px; border-bottom: 1px solid rgba(0,0,0,.12)"><%-CMDESC%></div>
+
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#" onclick="formSubmit()">
+              <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">save</i> Save</a>
+
+          </form>
+        </div>
+        
+      </main>
+    </div>
+
+    <div id="snackbarMsg" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+    </div>     
+  </body>
+</html>

@@ -8,16 +8,16 @@ var multer = require('multer');
 var upload = multer({ dest: uploadPath})
 
 router.get('/', function(req, res, next) {
-  res.render('loginForm');
+  res.redirect('/users/loginForm');
 });
 
 router.get('/loginForm', function(req, res, next) {
-  res.render('loginForm');
+  res.render('users/loginForm');
 });
 
 router.post('/loginChk', function(req, res, next) {
   pool.getConnection(function (err, connection) {
-    var sql = "SELECT USERNO, USERNM, USERROLE"+
+    let sql = "SELECT USERNO, USERNM, USERROLE"+
                " FROM COM_USER" +
               " WHERE USERID='" + req.body.userid + "' AND USERPW=SHA2('" + req.body.userpw + "', 256)";
 
@@ -29,14 +29,7 @@ router.post('/loginChk', function(req, res, next) {
           res.redirect('loginForm');	
           return;
         }
-        console.log("rows : " + rows[0].USERNO);
-        req.session.userno = rows[0].USERNO;
-        req.session.userid = req.body.userid;
-        req.session.usernm = rows[0].USERNM;
-        req.session.userrole = rows[0].USERROLE;
-        req.session.save(function(){
-          res.redirect('/index');		
-        });  
+        setSession (req, res, rows[0]);
     });
   });   
 });
@@ -46,11 +39,54 @@ router.get('/logout', function(req, res, next) {
       res.redirect('loginForm');
   });
 });
+// -------------------------------------------------------------
 
+router.get('/joinForm', function(req, res, next) {
+  res.render('users/joinForm');
+});
+
+router.post('/joinFormSave', function(req, res, next) {
+  pool.getConnection(function (err, connection) {
+      let sql = "SELECT USERNO, USERNM, USERROLE"+
+                " FROM COM_USER" +
+                " WHERE USERID='" + req.body.userid+"'";
+      connection.query(sql, function (err, rows) {
+        if (err) console.error("err : " + err);
+        if (rows.length>0) {
+          connection.release();
+          res.render('users/joinFormError');
+          return;
+        }
+        let data = [req.body.userid, req.body.usernm, req.body.userpw, req.body.usermail, req.body.usersns];
+        let sql = "INSERT INTO COM_USER (USERID, USERNM, USERPW, USERMAIL, USERSNS, USERROLE, ENTRYDATE, DELETEFLAG) VALUES(?, ?, SHA2(?, 256), ?, ?, 'U', NOW(), 'N')";
+        connection.query(sql, data, function (err, rows) {
+          if (err) console.error("err : " + err);
+    
+          let sql = "SELECT USERNO, USERNM, USERROLE"+
+                    " FROM COM_USER" +
+                    " WHERE USERID='" + req.body.userid+"'";
+          connection.query(sql, function (err, rows) {
+            connection.release();
+            if (err) console.error("err : " + err);
+      
+            setSession (req, res, rows[0]);
+          });   
+        });   
+      });   
+  });   
+});
+
+function setSession (req, res, user) {
+  req.session.userno = user.USERNO;
+  req.session.userid = user.USERID;
+  req.session.usernm = user.USERNM;
+  req.session.userrole = user.USERROLE;
+  res.redirect('/index');	
+}
 // -------------------------------------------------------------
 router.get('/profile', function(req, res, next) {
   pool.getConnection(function (err, connection) {
-    var sql = "SELECT USERNM, PHOTO"+
+    let sql = "SELECT USERNM, USERMAIL, PHOTO"+
                " FROM COM_USER" +
               " WHERE USERNO=" + req.session.userno;
 
@@ -68,26 +104,25 @@ router.get('/profile', function(req, res, next) {
 });
 
 router.post('/profileSave', function(req,res,next){
-  var data = [req.body.usernm, req.session.userno];
+  let data = [req.body.usernm, req.session.userno];
 
   pool.getConnection(function (err, connection) {
-      var sql = "UPDATE COM_USER" +
+      let sql = "UPDATE COM_USER" +
                   " SET USERNM=?" +
                 " WHERE USERNO=?";
       connection.query(sql, data, function (err, rows) {
           if (err) console.error("err : " + err);
           connection.release();
           res.send("OK"); 
-//          res.redirect('/users/profile');
       }); 
   }); 
 });
 
 router.post('/changePW', function(req,res,next){
-  var data = [req.body.userpw, req.session.userno];
+  let data = [req.body.userpw, req.session.userno];
 
   pool.getConnection(function (err, connection) {
-      var sql = "UPDATE COM_USER" +
+      let sql = "UPDATE COM_USER" +
                   " SET USERPW=SHA2(?, 256)";
                 " WHERE USERNO=?";
       connection.query(sql, data, function (err, rows) {
@@ -99,10 +134,10 @@ router.post('/changePW', function(req,res,next){
 });
 
 router.post('/userPhoto', upload.single('userfile'), function(req, res){
-  var data = [req.file.filename, req.session.userno];
+  let data = [req.file.filename, req.session.userno];
 
   pool.getConnection(function (err, connection) {
-    var sql = "UPDATE COM_USER" +
+    let sql = "UPDATE COM_USER" +
                 " SET PHOTO=?" +
               " WHERE USERNO=?";
     connection.query(sql, data, function (err, rows) {
@@ -113,10 +148,5 @@ router.post('/userPhoto', upload.single('userfile'), function(req, res){
     }); 
   }); 
 });
-
-router.get('/getPhoto', function(req,res,next){
-  res.download(uploadPath+req.query.filename);
-});
-
 
 module.exports = router;
