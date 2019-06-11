@@ -9,8 +9,9 @@ To make web development easier and faster, a variety of frequently used function
 ### FEATURES ###
 
 - Design templete (Material Design Lite) : Drawer, Dialog, Snackbar ...
-- Simple Board, User Profile, Login
+- Simple Board, User Profile, Login (sns)
 - Express Security settings (helmet)
+- Sample codes : ckeditor, calendar
 
 ### Install & Run ###
 
